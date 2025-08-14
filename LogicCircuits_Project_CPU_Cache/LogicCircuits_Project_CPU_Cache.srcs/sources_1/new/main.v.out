@@ -1,0 +1,49 @@
+#! /mingw64/bin/vvp
+:ivl_version "13.0 (devel)" "(s20250103-64-gdad78d525-dirty)";
+:ivl_delay_selection "TYPICAL";
+:vpi_time_precision + 0;
+:vpi_module "C:\msys64\mingw64\lib\ivl\system.vpi";
+:vpi_module "C:\msys64\mingw64\lib\ivl\vhdl_sys.vpi";
+:vpi_module "C:\msys64\mingw64\lib\ivl\vhdl_textio.vpi";
+:vpi_module "C:\msys64\mingw64\lib\ivl\v2005_math.vpi";
+:vpi_module "C:\msys64\mingw64\lib\ivl\va_math.vpi";
+S_00000237fc0fd8b0 .scope module, "cache_handler" "cache_handler" 2 2;
+ .timescale 0 0;
+    .port_info 0 /INPUT 1 "clk";
+    .port_info 1 /INPUT 32 "address";
+    .port_info 2 /INPUT 1 "rst";
+    .port_info 3 /INPUT 32 "read_data";
+    .port_info 4 /OUTPUT 32 "write_data";
+    .port_info 5 /OUTPUT 1 "result";
+    .port_info 6 /OUTPUT 1 "total_accesses";
+    .port_info 7 /OUTPUT 1 "total_misses";
+P_00000237fc0fef20 .param/l "MEM_SIZE" 0 2 14, +C4<00000000000000000000010000000000>;
+P_00000237fc0fef58 .param/l "NUM_LINES" 0 2 12, +C4<00000000000000000000000000010000>;
+P_00000237fc0fef90 .param/l "WORD_PER_LINE" 0 2 13, +C4<00000000000000000000000000000100>;
+o00000237fc14afb8 .functor BUFZ 32, c4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v00000237fc116e70_0 .net "address", 31 0, o00000237fc14afb8;  0 drivers
+o00000237fc14afe8 .functor BUFZ 1, c4<z>; HiZ drive
+v00000237fc1462b0_0 .net "clk", 0 0, o00000237fc14afe8;  0 drivers
+v00000237fc146170 .array "memory", 1023 0, 7 0;
+o00000237fc14b018 .functor BUFZ 32, c4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v00000237fc145770_0 .net "read_data", 31 0, o00000237fc14b018;  0 drivers
+o00000237fc14b048 .functor BUFZ 1, c4<z>; HiZ drive
+v00000237fc1456d0_0 .net "result", 0 0, o00000237fc14b048;  0 drivers
+o00000237fc14b078 .functor BUFZ 1, c4<z>; HiZ drive
+v00000237fc145ef0_0 .net "rst", 0 0, o00000237fc14b078;  0 drivers
+o00000237fc14b0a8 .functor BUFZ 1, c4<z>; HiZ drive
+v00000237fc145810_0 .net "total_accesses", 0 0, o00000237fc14b0a8;  0 drivers
+o00000237fc14b0d8 .functor BUFZ 1, c4<z>; HiZ drive
+v00000237fc146210_0 .net "total_misses", 0 0, o00000237fc14b0d8;  0 drivers
+o00000237fc14b108 .functor BUFZ 32, c4<zzzzzzzzzzzzzzzzzzzzzzzzzzzzzzzz>; HiZ drive
+v00000237fc145e50_0 .net "write_data", 31 0, o00000237fc14b108;  0 drivers
+    .scope S_00000237fc0fd8b0;
+T_0 ;
+    %vpi_call 2 20 "$readmemb", "memory.list", v00000237fc146170 {0 0 0};
+    %end;
+    .thread T_0;
+# The file index is used to find the file name in the following table.
+:file_names 3;
+    "N/A";
+    "<interactive>";
+    "main.v";

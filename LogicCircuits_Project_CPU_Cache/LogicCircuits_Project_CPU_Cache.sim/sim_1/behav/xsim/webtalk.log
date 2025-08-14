@@ -1,0 +1,14 @@
+#-----------------------------------------------------------
+# Webtalk v2019.1 (64-bit)
+# SW Build 2552052 on Fri May 24 14:49:42 MDT 2019
+# IP Build 2548770 on Fri May 24 18:01:18 MDT 2019
+# Start of session at: Thu Aug 14 17:40:19 2025
+# Process ID: 25400
+# Current directory: C:/Users/Farbo/Desktop/Uni Stuff/Term 2/Logic Circuits/Project/LogicCircuits_Project_CPU_Cache/LogicCircuits_Project_CPU_Cache.sim/sim_1/behav/xsim
+# Command line: wbtcv.exe -mode batch -source C:/Users/Farbo/Desktop/Uni Stuff/Term 2/Logic Circuits/Project/LogicCircuits_Project_CPU_Cache/LogicCircuits_Project_CPU_Cache.sim/sim_1/behav/xsim/xsim.dir/cache_handler_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: C:/Users/Farbo/Desktop/Uni Stuff/Term 2/Logic Circuits/Project/LogicCircuits_Project_CPU_Cache/LogicCircuits_Project_CPU_Cache.sim/sim_1/behav/xsim/webtalk.log
+# Journal file: C:/Users/Farbo/Desktop/Uni Stuff/Term 2/Logic Circuits/Project/LogicCircuits_Project_CPU_Cache/LogicCircuits_Project_CPU_Cache.sim/sim_1/behav/xsim\webtalk.jou
+#-----------------------------------------------------------
+source C:/Users/Farbo/Desktop/Uni -notrace
+couldn't read file "C:/Users/Farbo/Desktop/Uni": no such file or directory
+INFO: [Common 17-206] Exiting Webtalk at Thu Aug 14 17:40:19 2025...
