@@ -18,7 +18,7 @@ parameter NUM_LINES = 16;
 parameter WORD_PER_LINE = 4;
 parameter MEM_SIZE = 1024;
 //Registers definition
-reg [31:0] cache_memory[0:NUM_LINES - 1][0:WORD_PER_LINE - 1];
+reg [7:0] cache_memory[0:NUM_LINES - 1][0:WORD_PER_LINE - 1];
 reg [17:0] cache_tag[0:NUM_LINES - 1];
 reg valid_bit[0:NUM_LINES - 1];
 reg [7:0] memory [0:MEM_SIZE - 1];
@@ -38,6 +38,15 @@ begin
         read_cache = cache_memory[row][column];
     else
         read_cache = `NULL;
+end
+endfunction
+function [7:0]load_to_cache(input address);
+begin
+    valid_bit[address[6:2]] = 1;
+    cache_tag[address[6:2]] = address[25:7];
+    for (i = 0; i < WORD_PER_LINE; i = i + 1)
+        // cache_memory[address[6:2]] = memory
+
 end
 endfunction
 always @(posedge clk) begin
@@ -65,7 +74,7 @@ begin
         begin
             total_misses <= total_misses + 1;
             result <= `MISS;
-
+            read_data <= load_to_cache(address);
         end
 
 end
