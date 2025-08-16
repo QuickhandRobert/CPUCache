@@ -2,11 +2,16 @@
 `define HIT (1)
 `define MISS (0)
 `define NULL (8'b00000000)
+//CPU Cache Simulator, Written by QuickhandRobert
+//August, 2025
+//Note:
+////Since our memory is byte addressable, but we're storing words (4bytes), we're gonna ignore the first two bits
 //------------------------------------
 module cache_handler(
 input clk,
 input [31:0] address,
 input rst,
+input access,
 input write_enable,
 input [31:0] write_data,
 output reg [31:0] read_data,
@@ -15,24 +20,27 @@ output reg [31:0] total_accesses,
 output reg [31:0] total_misses);
 //Constant Paramters
 parameter NUM_LINES = 16;
+parameter NUM_LINES_BITS = 4; // (2 ^ 4)
 parameter WORD_PER_LINE = 4;
+parameter WORD_PER_LINE_BITS = 2; // (2 ^ 2)
 parameter MEM_SIZE = 1024;
 //Registers definition
-reg [7:0] cache_memory[0:NUM_LINES - 1][0:WORD_PER_LINE - 1];
+reg [31:0] cache_memory[0:NUM_LINES - 1][0:WORD_PER_LINE - 1];
 reg [17:0] cache_tag[0:NUM_LINES - 1];
 reg valid_bit[0:NUM_LINES - 1];
 reg [7:0] memory [0:MEM_SIZE - 1];
 integer i;
-initial $readmemb("C:\Users\Farbo\Desktop\Uni_Stuff\Term 2\Logic Circuits\Project\LogicCircuits_Project_CPU_Cache\LogicCircuits_Project_CPU_Cache.sim\sim_1\behav\xsim\memory.list", memory); //Initialize Memory Values from Randomly Generated Values in memory.list (ASCII characters)
+integer memory_address_temp;
+initial $readmemb("C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/memory.list", memory); //Initialize Memory Values from Randomly Generated Values in memory.list (ASCII characters)
 function check_memory(input [31:0] address);
     begin
-        if (cache_tag[address[5:2]] == address[24:6])
+        if (cache_tag[address[9:5]] == address[24:6])
             check_memory = 1;
         else
             check_memory = 0;
     end
 endfunction
-function [7:0]read_cache(input [3:0]row, input [1:0]column);
+function [31:0]read_cache(input [3:0]row, input [1:0]column);
 begin
     if (valid_bit[row])
         read_cache = cache_memory[row][column];
@@ -40,13 +48,25 @@ begin
         read_cache = `NULL;
 end
 endfunction
-function [7:0]load_to_cache(input address);
+function [31:0]create_memory_address (input [WORD_PER_LINE_BITS - 1:0]n, input [NUM_LINES_BITS - 1:0]row);
 begin
-    valid_bit[address[6:2]] = 1;
-    cache_tag[address[6:2]] = address[25:7];
+    create_memory_address = cache_tag[row];
+    create_memory_address = create_memory_address << 17 | row;
+    create_memory_address = create_memory_address << NUM_LINES_BITS | n;
+    create_memory_address = create_memory_address << 2;
+end
+endfunction
+function [31:0]load_to_cache(input [31:0] address);
+begin
+    valid_bit[address[9:5]] = 1;
+    cache_tag[address[9:5]] = address[27:10];
     for (i = 0; i < WORD_PER_LINE; i = i + 1)
-        // cache_memory[address[6:2]] = memory
-
+        begin
+        memory_address_temp = create_memory_address(i, address[6:2]);
+        cache_memory[address[9:5]][i] = 
+        {memory[memory_address_temp + 3], memory[memory_address_temp + 2], memory[memory_address_temp + 1], memory[memory_address_temp]}; //32 / 8 (Memory is Byte Addressable)
+        end
+    load_to_cache = read_cache(address[9:5], address[4:2]);
 end
 endfunction
 always @(posedge clk) begin
@@ -63,27 +83,30 @@ else
     total_accesses <= total_accesses + 1;
 //----------------------------------
 //Read
-if (~write_enable)
-begin
-    if (check_memory(address))
-        begin
-            result <= `HIT;
-            read_data <= read_cache(address[6:2], address[1:0]);
-        end
-    else
-        begin
-            total_misses <= total_misses + 1;
-            result <= `MISS;
-            read_data <= load_to_cache(address);
-        end
+    if (access)
+    begin
+        if (~write_enable)
+            begin
+                if (check_memory(address))
+                    begin
+                        result <= `HIT;
+                        read_data <= read_cache(address[9:5], address[4:2]); 
+                    end
+                else
+                    begin
+                        total_misses <= total_misses + 1;
+                        result <= `MISS;
+                        read_data <= load_to_cache(address);
+                    end
 
-end
-//----------------------------------
-//Write
-else
-begin
-$display("Kir");
-end
+            end
+        //----------------------------------
+        //Write
+        else
+            begin
+            $display("Kir");
+            end
+    end
 end
 endmodule
 
