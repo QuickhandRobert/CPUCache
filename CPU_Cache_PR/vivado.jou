@@ -399,3 +399,164 @@ remove_bps -file {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project
 close_sim
 synth_design -rtl -name rtl_1
 update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+synth_design -rtl -name rtl_1
+close_design
+synth_design -rtl -name rtl_1
+close_design
+launch_simulation
+source Cache_tb.tcl
+add_bp {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/cache_tb.v} 64
+close_sim
+launch_simulation
+source Cache_tb.tcl
+step
+add_bp {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/cache_tb.v} 63
+remove_bps -file {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/cache_tb.v} -line 64
+close_sim
+launch_simulation
+source Cache_tb.tcl
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+close_sim
+launch_simulation
+source Cache_tb.tcl
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+step
+close_sim
+launch_simulation
+source Cache_tb.tcl
+add_bp {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/cache_tb.v} 64
+remove_bps -file {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/cache_tb.v} -line 63
+close_sim
+launch_simulation
+source Cache_tb.tcl
+step
+close_sim
+launch_simulation
+source Cache_tb.tcl
+step
+close_sim
+launch_simulation
+source Cache_tb.tcl
+step
+step
+step
+step
+step
+step
+step
+remove_bps -file {C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/cache_tb.v} -line 64
+close_sim
+launch_simulation
+source Cache_tb.tcl
+synth_design -rtl -name rtl_1
+close_design
+set_property is_global_include true [get_files  C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/main.v]
+close_sim
+set_property is_global_include false [get_files  C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/CPU_Cache_PR.srcs/sources_1/imports/new/main.v]

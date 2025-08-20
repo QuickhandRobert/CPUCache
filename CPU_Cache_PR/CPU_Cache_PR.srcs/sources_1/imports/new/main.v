@@ -62,7 +62,7 @@ begin
     cache_tag[address[9:5]] = address[27:10];
     for (i = 0; i < WORD_PER_LINE; i = i + 1)
         begin
-        memory_address_temp = create_memory_address(i, address[6:2]);
+        memory_address_temp = create_memory_address(i, address[9:5]);
         cache_memory[address[9:5]][i] = 
         {memory[memory_address_temp + 3], memory[memory_address_temp + 2], memory[memory_address_temp + 1], memory[memory_address_temp]}; //32 / 8 (Memory is Byte Addressable)
         end

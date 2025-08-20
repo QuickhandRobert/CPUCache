@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8" ?>
-<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Sat Aug 16 19:35:44 2025'>
+<webTalkData  fileName='usage_statistics_ext_xsim.xml'  majorVersion='1' minorVersion='0' timeStamp='Sun Aug 17 20:29:45 2025'>
 <section name="__ROOT__" level="0" order="1" description="">
  <section name="software_version_and_target_device" level="1" order="1" description="">
   <keyValuePair key="beta" value="FALSE" description="" />
   <keyValuePair key="build_version" value="2552052" description="" />
-  <keyValuePair key="date_generated" value="Sat Aug 16 19:35:43 2025" description="" />
+  <keyValuePair key="date_generated" value="Sun Aug 17 20:29:44 2025" description="" />
   <keyValuePair key="os_platform" value="WIN64" description="" />
   <keyValuePair key="product_version" value="XSIM v2019.1 (64-bit)" description="" />
   <keyValuePair key="project_id" value="562375b6646f48aca133c474a407c471" description="" />
-  <keyValuePair key="project_iteration" value="5" description="" />
+  <keyValuePair key="project_iteration" value="44" description="" />
   <keyValuePair key="random_id" value="fa061b98-bbf0-4f3b-a2ad-456a75b87f02" description="" />
   <keyValuePair key="registration_id" value="fa061b98-bbf0-4f3b-a2ad-456a75b87f02" description="" />
   <keyValuePair key="route_design" value="FALSE" description="" />
@@ -34,9 +34,9 @@
   </section>
   <section name="usage" level="2" order="2" description="">
    <keyValuePair key="iteration" value="0" description="" />
-   <keyValuePair key="runtime" value="25 ns" description="" />
-   <keyValuePair key="simulation_memory" value="8664_KB" description="" />
-   <keyValuePair key="simulation_time" value="0.12_sec" description="" />
+   <keyValuePair key="runtime" value="85 ns" description="" />
+   <keyValuePair key="simulation_memory" value="8836_KB" description="" />
+   <keyValuePair key="simulation_time" value="0.33_sec" description="" />
    <keyValuePair key="trace_waveform" value="true" description="" />
   </section>
  </section>
