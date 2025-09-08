@@ -63,27 +63,42 @@ module Cache_tb;
         do_access(32'd0, 1'b0, 32'd0);
         $display("Read Addr=0: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
                 Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
-
         // 2) Read Addr=0 (hit)
         do_access(32'd0, 1'b0, 32'd0);
         $display("Read Addr=0 again: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
                 Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
-
         // 3) Write Addr=4
         do_access(32'd4, 1'b1, 32'hA5A5A5A5);
         $display("Write Addr=4: Hit_Miss=%s, Acc=%0d, Miss=%0d", 
                 Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
-
         // 4) Read Addr=4 (hit)
         do_access(32'd4, 1'b0, 32'd0);
         $display("Read Addr=4: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
                 Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
-
-        // 5) Read Addr=32 (new block)
+        // 5) Read Addr=32 (new row)
         do_access(32'd32, 1'b0, 32'd0);
         $display("Read Addr=32: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
                 Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
-
+        // 6) Read Addr=64 (miss)
+        do_access(32'd64, 1'b0, 32'd0);
+        $display("Read Addr=64: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
+                Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
+        // 7) Read Addr=64 (hit)
+        do_access(32'd64, 1'b0, 32'd0);
+        $display("Read Addr=64: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
+                Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
+        // 8) Write Addr=64 (miss)
+        do_access(32'd64, 1'b0, 32'hACFD1214);
+        $display("Write Addr=64: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
+                Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
+        // 9) Read Addr=128 (miss)
+        do_access(32'd128, 1'b0, 32'd0);
+        $display("Read Addr=128: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
+                Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
+        // 10) Read Addr=128 (hit)
+        do_access(32'd128, 1'b0, 32'd0);
+        $display("Read Addr=128: Data_Out=0x%h, Hit_Miss=%s, Acc=%0d, Miss=%0d", 
+                Data_Out, Hit_Miss ? "HIT" : "MISS", total_accesses, total_misses);
         // Final stats
         $display("Final: Accesses=%0d, Misses=%0d, HitRate=%.2f%%", 
                 total_accesses, total_misses, ((total_accesses - total_misses) * 100.0) / total_accesses);

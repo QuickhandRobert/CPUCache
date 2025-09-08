@@ -33,20 +33,25 @@ module cache_handler(
     integer memory_address_temp;
     initial
         $readmemb("C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/memory.list", memory); //Initialize Memory Values from Randomly Generated Values in memory.list (ASCII characters)
+    /*-----------------------------
+    Func: check_memory
+    Params: address > Memory address (Byte)
+    Return: True > Cache Tag Available, HIT
+            False> Cache Tag Not Available, MISS
+    -----------------------------*/
     function check_memory(input [31:0] address);
         begin
-<<<<<<< HEAD
-        memory_address_temp = create_memory_address(i, address[9:5]);
-        cache_memory[address[9:5]][i] = 
-        {memory[memory_address_temp + 3], memory[memory_address_temp + 2], memory[memory_address_temp + 1], memory[memory_address_temp]}; //32 / 8 (Memory is Byte Addressable)
-=======
-            if (cache_tag[address[9:5]] == address[24:6])
-                check_memory = 1;
-            else
-                check_memory = 0;
->>>>>>> refs/remotes/origin/main
+        if (cache_tag[address[7:4]] == address[24:8]) //address[9:5] : Cache Row | address[24:6] : Cache Tag (18 Bits)
+                 check_memory = 1;
+             else
+                 check_memory = 0;
         end
     endfunction
+    /*-----------------------------
+    Func: read_cache
+    Params: row, column
+    Return: Data Stored in Cache
+    -----------------------------*/
     function [31:0]read_cache(input [3:0]row, input [1:0]column);
         begin
             if (valid_bit[row])
@@ -55,24 +60,37 @@ module cache_handler(
                 read_cache = `NULL;
         end
     endfunction
+   /*-----------------------------
+    Func: create_memory_address
+    Params: n > Which Word From The N Words in a Cache Row
+            row > Cache Row
+    Return: Memory Address (Byte)
+    -----------------------------*/
     function [31:0]create_memory_address (input [WORD_PER_LINE_BITS - 1:0]n, input [NUM_LINES_BITS - 1:0]row);
         begin
             create_memory_address = cache_tag[row];
-            create_memory_address = create_memory_address << 17 | row;
-            create_memory_address = create_memory_address << NUM_LINES_BITS | n;
-            create_memory_address = create_memory_address << 2;
+            create_memory_address = create_memory_address << 17 | row; //Add Row to Cache_Tag
+            create_memory_address = create_memory_address << NUM_LINES_BITS | n; // Add n
+            create_memory_address = create_memory_address << 2; //Convert Word Addressed Address to Byte Addressed
         end
     endfunction
+    /*-----------------------------
+    Func: load_to_cache
+    Params: address
+    Return: Loaded Value
+    Desc: Load a Given Address (4 Words), and Return the nth Word
+    -----------------------------*/
     function [31:0]load_to_cache(input [31:0] address);
         begin
-            valid_bit[address[9:5]] = 1;
-            cache_tag[address[9:5]] = address[27:10];
+            valid_bit[address[7:4]] = 1;
+            cache_tag[address[7:4]] = address[24:8]; //18 Bits
+            //Load WORD_PER_LINE = 4 Words in Total
             for (i = 0; i < WORD_PER_LINE; i = i + 1) begin
-                memory_address_temp = create_memory_address(i, address[6:2]);
-                cache_memory[address[9:5]][i] =
-                            {memory[memory_address_temp + 3], memory[memory_address_temp + 2], memory[memory_address_temp + 1], memory[memory_address_temp]}; //32 / 8 (Memory is Byte Addressable)
+                memory_address_temp = create_memory_address(i, address[7:4]); //Create Byte Addressed Memory Address From Cache_Tag & i
+                cache_memory[address[7:4]][i] =
+                            {memory[memory_address_temp + 3], memory[memory_address_temp + 2], memory[memory_address_temp + 1], memory[memory_address_temp]}; //1 Word, 4 Bytes
             end
-            load_to_cache = read_cache(address[9:5], address[4:2]);
+            load_to_cache = read_cache(address[7:4], address[3:2]); //Return Loaded Value
         end
     endfunction
     always @(posedge clk) begin
@@ -92,20 +110,17 @@ module cache_handler(
             if (~write_enable) begin
                 if (check_memory(address)) begin
                     result <= `HIT;
-                    read_data <= read_cache(address[9:5], address[4:2]);
+                    read_data <= read_cache(address[7:4], address[3:2]);
                 end
                 else begin
                     total_misses <= total_misses + 1;
                     result <= `MISS;
                     read_data <= load_to_cache(address);
                 end
-
             end
             //----------------------------------
             //Write
-            //  Let's Cook !!
             else begin
-                $display("There's no Kir anymore :(");
                 if (check_memory(address)) begin
                     // Write Hit - Write-through policy
                     result <= `HIT;
