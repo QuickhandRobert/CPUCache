@@ -32,7 +32,7 @@ module cache_handler(
     integer i;
     integer memory_address_temp;
     initial
-        $readmemb("C:/Users/Farbo/Desktop/Uni_Stuff/Term_2/Logic_Circuits/Project/CPU_Cache_PR/memory.list", memory); //Initialize Memory Values from Randomly Generated Values in memory.list (ASCII characters)
+        $readmemb("memory.list", memory); //Initialize Memory Values from Randomly Generated Values in memory.list (ASCII characters)
     /*-----------------------------
     Func: check_memory
     Params: address > Memory address (Byte)
